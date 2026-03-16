@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test tizimi</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="timer" id="timer">01:00:00</div>
+
+      <div class="main">
+        <div class="question-area">
+          <img id="questionImage" src="" class="question-img" />
+
+          <div class="answers">
+            <label class="option">
+              <input type="radio" name="answer" value="0" />
+              <span></span>
+              A
+            </label>
+
+            <label class="option">
+              <input type="radio" name="answer" value="1" />
+              <span></span>
+              B
+            </label>
+
+            <label class="option">
+              <input type="radio" name="answer" value="2" />
+              <span></span>
+              C
+            </label>
+
+            <label class="option">
+              <input type="radio" name="answer" value="3" />
+              <span></span>
+              D
+            </label>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <div class="question-grid" id="questionGrid"></div>
+
+          <button class="finish-btn" onclick="finishTest()">
+            Testni yakunlash
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
