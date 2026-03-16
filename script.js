@@ -249,7 +249,7 @@ loadQuestion();
 startTimer();
 
 function startTimer() {
-  let time = 3600;
+  let time = 4800;
 
   let timer = document.getElementById("timer");
 
