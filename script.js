@@ -5,8 +5,8 @@ let currentQuestion = 0;
 let userAnswers = new Array(totalQuestions).fill(null);
 
 let correctAnswers = [
-  1, 2, 0, 3, 1, 2, 0, 1, 3, 2, 0, 1, 2, 3, 1, 0, 2, 1, 3, 2, 1, 0, 3, 2, 1, 0,
-  2, 3, 1, 0, 2, 1, 3, 0, 1, 2, 0, 3, 1, 2, 0, 1, 3, 2, 1, 0, 2, 3, 1, 0,
+  1, 0, 2, 0, 3, 1, 0, 3, 2, 0, 1, 3, 0, 0, 0, 2, 1, 3, 2, 1, 0, 3, 1, 2, 1, 1,
+  1, 0, 1, 0, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 0, 1, 0, 0, 2, 1, 1,
 ];
 
 for (let i = 1; i <= totalQuestions; i++) {
@@ -15,7 +15,7 @@ for (let i = 1; i <= totalQuestions; i++) {
   });
 }
 
-questions = questions.sort(() => Math.random() - 0.5);
+// questions = questions.sort(() => Math.random() - 0.5);
 
 const questionImage = document.getElementById("questionImage");
 const options = document.querySelectorAll("input[name='answer']");
