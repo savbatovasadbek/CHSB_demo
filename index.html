@@ -12,7 +12,11 @@
 
       <div class="main">
         <div class="question-area">
-          <img id="questionImage" src="" class="question-img" />
+          <h2 id="questionText"></h2>
+          <br />
+          <h3 id="englishAnswers"></h3>
+          <hr />
+          <img id="questionImage" class="question-img" />
 
           <div class="answers">
             <label class="option">
@@ -51,6 +55,33 @@
       </div>
     </div>
 
+    <div id="resultModal" class="modal">
+      <div class="modal-content">
+        <h2>Test Natijasi</h2>
+
+        <div class="charts">
+          <div class="chartBox">
+            <canvas id="mathChart"></canvas>
+            <p id="mathResult"></p>
+          </div>
+
+          <div class="chartBox">
+            <canvas id="engChart"></canvas>
+            <p id="engResult"></p>
+          </div>
+        </div>
+
+        <div class="modal-buttons">
+          <button onclick="restartTest()" class="restart">
+            Qayta boshlash
+          </button>
+
+          <button onclick="exitTest()" class="exit">Testdan chiqish</button>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>

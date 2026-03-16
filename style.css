@@ -94,8 +94,8 @@ body {
 }
 
 .qbtn {
-  width: 33px;
-  height: 33px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 2px solid #ccc;
   background: white;
@@ -106,6 +106,12 @@ body {
 .qbtn:hover {
   background: #ffe9a6;
   transform: scale(1.1);
+}
+
+.qbtn:active {
+  transform: scale(0.9);
+  background: #2a6bff;
+  color: white;
 }
 
 .qbtn.answered {
@@ -128,4 +134,124 @@ body {
 
 .finish-btn:hover {
   background: #d83535;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  width: 600px;
+  text-align: center;
+}
+
+.charts {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.chartBox {
+  width: 200px;
+}
+
+.modal-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.restart {
+  background: #2a6bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.exit {
+  background: #ff4b4b;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .container {
+    width: 95%;
+  }
+
+  .main {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    order: -1;
+  }
+
+  .question-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .qbtn {
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .timer {
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  .question-area {
+    padding: 15px;
+  }
+
+  .question-img {
+    height: 200px;
+  }
+
+  .answers {
+    gap: 10px;
+  }
+
+  .option {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .finish-btn {
+    margin-top: 15px;
+  }
+}
+
+.question-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.question-grid::-webkit-scrollbar-thumb {
+  background: #2a6bff;
+  border-radius: 10px;
 }
