@@ -31,6 +31,10 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+#studentInfo span {
+  text-transform: capitalize; /* Har bir so'zning birinchi harfini katta qiladi */
+  /* qolgan stillar... */
+}
 .container {
   width: 1200px;
   margin: auto;

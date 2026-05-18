@@ -8,11 +8,24 @@ if (!studentName || !studentClass || !studentId) {
   window.location.href = "login.html";
 }
 
-// Mana shu qatorni innerText o'rniga innerHTML qildik:
+// Matnni "Capitalize" (Har bir so'zning birinchi harfini katta) qiluvchi funksiya
+function capitalizeText(text) {
+  if (!text) return "";
+  return text
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+// Ismni chiroyli formatga o'tkazamiz
+const formattedName = capitalizeText(studentName);
+
+// Endi HTML ichiga formattedName o'zgaruvchisini joylashtiramiz
 document.getElementById("studentInfo").innerHTML = `
-  <span>👤  <b>O'quvchi:</b> &nbsp;${studentName}</span>
-  <span>🏫  <b>Sinf:</b> &nbsp;${studentClass}</span>
-  <span>🆔  <b>ID:</b> &nbsp;${studentId}</span>
+  <span>👤 <b>O'quvchi:</b> &nbsp;${formattedName}</span>
+  <span>🏫 <b>Sinf:</b> &nbsp;${studentClass}</span>
+  <span>🆔 <b>ID:</b> &nbsp;${studentId}</span>
 `;
 
 let questions = [];
