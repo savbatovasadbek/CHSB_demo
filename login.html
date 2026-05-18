@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Testga kirish</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f6f9;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-box {
+        width: 400px;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        background: #2563eb;
+        color: white;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+
+      .error {
+        color: red;
+        text-align: center;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="login-box">
+      <h1>Testga kirish</h1>
+
+      <div class="form-group">
+        <label>Sinf</label>
+
+        <select id="classSelect">
+          <option value="">Sinfni tanlang</option>
+          <option>5-A</option>
+          <option>5-B</option>
+          <option>5-C</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Ism Familiya</label>
+
+        <select id="nameSelect">
+          <option value="">O'quvchini tanlang</option>
+          <option>Aliyev Bekzod</option>
+          <option>Karimova Madina</option>
+          <option>Rustamov Aziz</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>ID</label>
+
+        <select id="idSelect">
+          <option value="">ID ni tanlang</option>
+          <option>STU-1001</option>
+          <option>STU-1002</option>
+          <option>STU-1003</option>
+        </select>
+      </div>
+
+      <button onclick="startTest()">Start</button>
+
+      <div class="error" id="error"></div>
+    </div>
+
+    <script>
+      function startTest() {
+        const classValue = document.getElementById("classSelect").value;
+        const nameValue = document.getElementById("nameSelect").value;
+        const idValue = document.getElementById("idSelect").value;
+
+        const error = document.getElementById("error");
+
+        if (!classValue || !nameValue || !idValue) {
+          error.innerText = "Barcha ma'lumotlarni tanlang!";
+          return;
+        }
+
+        // localStorage ga saqlash
+        localStorage.setItem("studentClass", classValue);
+        localStorage.setItem("studentName", nameValue);
+        localStorage.setItem("studentId", idValue);
+
+        // Test sahifasiga o'tish
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>

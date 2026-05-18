@@ -1,5 +1,17 @@
 const totalQuestions = 40;
 
+const studentName = localStorage.getItem("studentName");
+const studentClass = localStorage.getItem("studentClass");
+const studentId = localStorage.getItem("studentId");
+
+if (!studentName || !studentClass || !studentId) {
+  window.location.href = "login.html";
+}
+
+document.getElementById(
+  "studentInfo"
+).innerText = `O'quvchi: ${studentName} | Sinf: ${studentClass} | ID: ${studentId}`;
+
 let questions = [];
 let currentQuestion = 0;
 let userAnswers = new Array(totalQuestions).fill(null);
@@ -63,91 +75,92 @@ for (let i = 1; i <= 25; i++) {
 }
 
 mathQuestions = mathQuestions.sort(() => Math.random() - 0.5);
+
 const englishQuestions = [
   {
     type: "text",
     question: "Which astronaut was the first person to walk on the Moon?",
     answers:
-      "A) Yuri Gagarin   B) Neil Armstrong   C) Thomas Edison   D) Albert Einstein",
+      "A) Yuri Gagarin\nB) Neil Armstrong\nC) Thomas Edison\nD) Albert Einstein",
     answer: 1,
   },
   {
     type: "text",
     question:
       "During the carnival, people wore colorful costumes and danced in a huge ________.",
-    answers: "A) parade   B) classroom   C) laboratory   D) competition",
+    answers: "A) parade\nB) classroom\nC) laboratory\nD) competition",
     answer: 0,
   },
   {
     type: "text",
     question:
       "Fireworks become different colors because of special ________ inside them.",
-    answers: "A) gases   B) metals   C) metal salts   D) liquids",
+    answers: "A) gases\nB) metals\nC) metal salts\nD) liquids",
     answer: 2,
   },
   {
     type: "text",
     question: "My brother ________ going to build a model rocket this weekend.",
-    answers: "A) are   B) is   C) am   D) be",
+    answers: "A) are\nB) is\nC) am\nD) be",
     answer: 1,
   },
   {
     type: "text",
     question:
       "We ________ going to visit the science museum tomorrow because it is closed.",
-    answers: "A) are not   B) don’t   C) not are   D) isn’t",
+    answers: "A) are not\nB) don’t\nC) not are\nD) isn’t",
     answer: 0,
   },
   {
     type: "text",
     question: "________ they going to watch the fireworks tonight?",
-    answers: "A) Is   B) Am   C) Are   D) Do",
+    answers: "A) Is\nB) Am\nC) Are\nD) Do",
     answer: 2,
   },
   {
     type: "text",
     question:
       "– Where are you going to spend your summer holiday?\n– We ________ going to visit Samarkand.",
-    answers: "A) is   B) are   C) am   D) be",
+    answers: "A) is\nB) are\nC) am\nD) be",
     answer: 1,
   },
   {
     type: "text",
     question: "Choose the INCORRECT sentence.",
     answers:
-      "A) She is going to buy a new backpack.   B) They are going to travel by train.   C) We going to play basketball later.   D) I am not going to stay at home.",
+      "A) She is going to buy a new backpack.\nB) They are going to travel by train.\nC) We going to play basketball later.\nD) I am not going to stay at home.",
     answer: 2,
   },
   {
     type: "text",
     question: "The girl ________ won the art competition is my cousin.",
-    answers: "A) which   B) where   C) who   D) when",
+    answers: "A) which\nB) where\nC) who\nD) when",
     answer: 2,
   },
   {
     type: "text",
     question: "This is the library ________ we usually study after school.",
-    answers: "A) who   B) where   C) which   D) what",
+    answers: "A) who\nB) where\nC) which\nD) what",
     answer: 1,
   },
   {
     type: "text",
     question: "Match the sentence halves.\nThe movie was exciting, ...",
     answers:
-      "A) but it was too long.   B) who helped me yesterday.   C) where we bought snacks.   D) which is my teacher.",
+      "A) but it was too long.\nB) who helped me yesterday.\nC) where we bought snacks.\nD) which is my teacher.",
     answer: 0,
   },
   {
     type: "text",
     question: "I wanted to go swimming, ________ the water was too cold.",
-    answers: "A) so   B) because   C) but   D) and",
+    answers: "A) so\nB) because\nC) but\nD) and",
     answer: 2,
   },
   {
     type: "text",
     question: "Choose the sentence where “and” is used correctly.",
     answers:
-      "A) She opened the book and started reading.   B) She was hungry and she ate because.   C) He ran fast, and but he lost.   D) They played football and tired.",
+      "A) She opened the book and started reading.\nB) She was hungry and she ate because.\nC) He ran fast, and but he lost.\nD) They played football and tired.",
     answer: 0,
   },
   {
@@ -155,7 +168,7 @@ const englishQuestions = [
     question:
       "Why did Ben enjoy the science fair?\n\nHello Tom,\nYesterday our school had a science fair. Students made robots, volcanoes, and space models. My favorite project was a small robot that could carry books. I also liked the planet models because they looked very realistic. At the end of the fair, our class won first prize, and everyone cheered loudly. I was very proud and excited.\n\nSee you soon,\nBen",
     answers:
-      "A) Because he stayed home all day.   B) Because he saw interesting projects and his class won.   C) Because he didn’t like the robots.   D) Because the fair was boring.",
+      "A) Because he stayed home all day.\nB) Because he saw interesting projects and his class won.\nC) Because he didn’t like the robots.\nD) Because the fair was boring.",
     answer: 1,
   },
   {
@@ -163,11 +176,12 @@ const englishQuestions = [
     question:
       "Why is Mars colder than Earth?\n\nMars and Earth are planets in our solar system. Earth is closer to the Sun than Mars. Because Mars is farther away, it receives less heat and light from the Sun. Scientists study Mars carefully because they want to learn if people can live there in the future.",
     answers:
-      "A) Because Mars is bigger than Earth.   B) Because Mars has more oceans.   C) Because Mars is farther from the Sun.   D) Because Mars is closer to the Moon.",
+      "A) Because Mars is bigger than Earth.\nB) Because Mars has more oceans.\nC) Because Mars is farther from the Sun.\nD) Because Mars is closer to the Moon.",
     answer: 2,
   },
 ];
 englishQuestions = englishQuestions.sort(() => Math.random() - 0.5);
+
 questions = [...mathQuestions, ...englishQuestions];
 
 const questionImage = document.getElementById("questionImage");
@@ -278,7 +292,7 @@ loadQuestion();
 startTimer();
 
 function startTimer() {
-  let time = 4800;
+  let time = 3600;
 
   let timer = document.getElementById("timer");
 
