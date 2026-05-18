@@ -8,9 +8,12 @@ if (!studentName || !studentClass || !studentId) {
   window.location.href = "login.html";
 }
 
-document.getElementById(
-  "studentInfo"
-).innerText = `O'quvchi: ${studentName} | Sinf: ${studentClass} | ID: ${studentId}`;
+// Mana shu qatorni innerText o'rniga innerHTML qildik:
+document.getElementById("studentInfo").innerHTML = `
+  <span>👤  <b>O'quvchi:</b> &nbsp;${studentName}</span>
+  <span>🏫  <b>Sinf:</b> &nbsp;${studentClass}</span>
+  <span>🆔  <b>ID:</b> &nbsp;${studentId}</span>
+`;
 
 let questions = [];
 let currentQuestion = 0;
@@ -49,7 +52,7 @@ let mathCorrectAnswers = [
   2,
   1,
   2,
-  3, // 1-13 gacha bo'lgan javoblar
+  3, // 1-13
   2,
   0,
   2,
@@ -61,7 +64,7 @@ let mathCorrectAnswers = [
   1,
   3,
   1,
-  0, // 14-25 gacha bo'lgan javoblar
+  0, // 14-25
 ];
 
 let mathQuestions = [];
@@ -180,7 +183,6 @@ const englishQuestions = [
     answer: 2,
   },
 ];
-englishQuestions = englishQuestions.sort(() => Math.random() - 0.5);
 
 questions = [...mathQuestions, ...englishQuestions];
 
@@ -223,7 +225,6 @@ function loadQuestion() {
 options.forEach((option) => {
   option.addEventListener("change", function () {
     userAnswers[currentQuestion] = parseInt(this.value);
-
     updateGrid();
   });
 });
@@ -245,7 +246,6 @@ function createGrid() {
 
 function updateGrid() {
   let buttons = document.querySelectorAll(".qbtn");
-
   buttons.forEach((btn, i) => {
     if (userAnswers[i] != null) {
       btn.classList.add("answered");
@@ -257,12 +257,14 @@ function finishTest() {
   let mathCorrect = 0;
   let engCorrect = 0;
 
+  // Matematika (0 dan 24 gacha - jami 25 ta)
   for (let i = 0; i < 25; i++) {
     if (userAnswers[i] == questions[i].answer) {
       mathCorrect++;
     }
   }
 
+  // Ingliz tili (25 dan 39 gacha - jami 15 ta)
   for (let i = 25; i < 40; i++) {
     if (userAnswers[i] == questions[i].answer) {
       engCorrect++;
@@ -270,33 +272,58 @@ function finishTest() {
   }
 
   let mathPercent = Math.round((mathCorrect / 25) * 100);
-  let engPercent = Math.round((engCorrect / 25) * 100);
+  let engPercent = Math.round((engCorrect / 15) * 100); // 15 ga bo'linadi
 
+  // Fanlar natijasi matni
   document.getElementById(
     "mathResult"
   ).innerText = `Matematika: ${mathCorrect}/25 (${mathPercent}%)`;
-
   document.getElementById(
     "engResult"
-  ).innerText = `English: ${engCorrect}/25 (${engPercent}%)`;
+  ).innerText = `English: ${engCorrect}/15 (${engPercent}%)`;
 
+  // O'quvchi ma'lumotlarini modalga yozish
+  document.getElementById("resStudentName").innerText =
+    studentName || "Kiritilmagan";
+  document.getElementById("resStudentClass").innerText = `${
+    studentClass || "Kiritilmagan"
+  } (ID: ${studentId || "-"})`;
+
+  // Jami ball va umumiy foiz
+  let totalCorrect = mathCorrect + engCorrect;
+  let totalPercent = Math.round((totalCorrect / totalQuestions) * 100);
+  document.getElementById(
+    "totalScore"
+  ).innerText = `${totalCorrect} / ${totalQuestions}`;
+  document.getElementById("totalPercentage").innerText = `${totalPercent}%`;
+
+  // Statusni belgilash (Masalan, 50% va undan yuqori - O'tdi)
+  const statusBadge = document.getElementById("resStatus");
+  if (totalPercent >= 50) {
+    statusBadge.innerText = "O'tdi";
+    statusBadge.className = "status-badge passed";
+  } else {
+    statusBadge.innerText = "O'tmadi";
+    statusBadge.className = "status-badge failed";
+  }
+
+  // Diagrammalarni yangi qiymat bilan chizish
   createChart("mathChart", mathCorrect, 25 - mathCorrect);
-  createChart("engChart", engCorrect, 25 - engCorrect);
+  createChart("engChart", engCorrect, 15 - engCorrect); // Ingliz tili jami 15 ta
 
+  // Modalni ochish
   document.getElementById("resultModal").style.display = "flex";
 }
 
 createGrid();
 loadQuestion();
-
 startTimer();
 
 function startTimer() {
   let time = 3600;
-
   let timer = document.getElementById("timer");
 
-  setInterval(() => {
+  let timerInterval = setInterval(() => {
     let h = Math.floor(time / 3600);
     let m = Math.floor((time % 3600) / 60);
     let s = time % 60;
@@ -309,15 +336,20 @@ function startTimer() {
     time--;
 
     if (time < 0) {
+      clearInterval(timerInterval);
       finishTest();
     }
   }, 1000);
 }
 
 function restartTest() {
-  location.reload();
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.href = "login.html";
 }
 
 function exitTest() {
-  window.location.href = "index.html";
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.href = "login.html";
 }

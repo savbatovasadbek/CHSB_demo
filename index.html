@@ -13,7 +13,7 @@
 
       <div class="main">
         <div class="question-area">
-          <h2 id="questionText"></h2>
+          <h4 id="questionText"></h4>
           <br />
           <h3 id="englishAnswers"></h3>
           <hr />
@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <div id="resultModal" class="modal">
+    <!-- <div id="resultModal" class="modal">
       <div class="modal-content">
         <h2>Test Natijasi</h2>
 
@@ -78,6 +78,63 @@
           </button>
 
           <button onclick="exitTest()" class="exit">Testdan chiqish</button>
+        </div>
+      </div>
+    </div> -->
+
+    <div id="resultModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>🎉 Test Yakunlandi</h2>
+          <p class="subtitle">Sizning umumiy natijangiz bilan tanishing</p>
+        </div>
+
+        <div class="student-profile-card">
+          <div class="profile-info">
+            <p>
+              <strong>O'quvchi:</strong>
+              <span id="resStudentName">Eshmatov Toshmat</span>
+            </p>
+            <p>
+              <strong>Sinf / ID:</strong>
+              <span id="resStudentClass">5-A sinf</span>
+            </p>
+          </div>
+          <div class="status-badge passed" id="resStatus">O'tdi</div>
+        </div>
+
+        <div class="overall-stats">
+          <div class="stat-item">
+            <span class="stat-label">Umumiy Ball:</span>
+            <span class="stat-value" id="totalScore">38 / 50</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Foiz ko'rsatkichi:</span>
+            <span class="stat-value" id="totalPercentage">76%</span>
+          </div>
+        </div>
+
+        <div class="charts">
+          <div class="chartBox">
+            <h3>Matematika</h3>
+            <canvas id="mathChart"></canvas>
+            <p id="mathResult" class="chart-result-text"></p>
+          </div>
+
+          <div class="chartBox">
+            <h3>Ingliz tili</h3>
+            <canvas id="engChart"></canvas>
+            <p id="engResult" class="chart-result-text"></p>
+          </div>
+        </div>
+
+        <div class="modal-buttons">
+          <button onclick="restartTest()" class="restart-btn">
+            🔄 Qayta boshlash
+          </button>
+          <button onclick="exitTest()" class="exit-btn">
+            🚪 Testdan chiqish
+          </button>
         </div>
       </div>
     </div>
