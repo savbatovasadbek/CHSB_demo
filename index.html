@@ -2,144 +2,331 @@
 <html lang="uz">
   <head>
     <meta charset="UTF-8" />
-    <title>4-CSHB DEMO</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testga kirish</title>
+
+    <style>
+      /* --- 1. GLOBAL STILLAR & MATEMATIK ORQA FON --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f4f6f9;
+        /* Matematik chizmalar va formulalardan iborat orqa fon SVG naqshi */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ctext x='10' y='30' fill='%232563eb' fill-opacity='0.04' font-size='14' font-family='Courier'%3Ee%3Dmc²%3C/text%3E%3Ctext x='70' y='40' fill='%232563eb' fill-opacity='0.04' font-size='16' font-family='Courier'%3Eπ%3C/text%3E%3Cpath d='M10 90 L30 70 L50 90 Z' stroke='%232563eb' stroke-opacity='0.04' fill='none' stroke-width='1.5'/%3E%3Ctext x='80' y='95' fill='%232563eb' fill-opacity='0.04' font-size='12' font-family='Courier'%3Ea²+b²%3Dc²%3C/text%3E%3Ccircle cx='95' cy='25' r='12' stroke='%232563eb' stroke-opacity='0.04' fill='none' stroke-width='1.5'/%3E%3Cpath d='M20 110 L40 110 M30 100 L30 120' stroke='%232563eb' stroke-opacity='0.04' stroke-width='1.5'/%3E%3C/svg%3E");
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* --- 2. HARAKATLANUVCHI GEOMETRIK SHAKLLAR (ANIMATSIYA) --- */
+      .math-shape {
+        position: absolute;
+        color: rgba(37, 99, 235, 0.08);
+        font-weight: bold;
+        user-select: none;
+        pointer-events: none;
+        animation: floatAnimation 12s infinite linear;
+      }
+      .shape1 {
+        font-size: 48px;
+        left: 10%;
+        top: 20%;
+        animation-duration: 14s;
+      }
+      .shape2 {
+        font-size: 36px;
+        right: 15%;
+        top: 15%;
+        animation-duration: 18s;
+        animation-delay: 2s;
+      }
+      .shape3 {
+        font-size: 56px;
+        left: 15%;
+        bottom: 15%;
+        animation-duration: 16s;
+      }
+      .shape4 {
+        font-size: 40px;
+        right: 12%;
+        bottom: 20%;
+        animation-duration: 20s;
+        animation-delay: 1s;
+      }
+
+      @keyframes floatAnimation {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-30px) rotate(180deg);
+        }
+        100% {
+          transform: translateY(0) rotate(360deg);
+        }
+      }
+
+      /* --- 3. LOGIN OYNASI (CARD) --- */
+      .login-box {
+        width: 100%;
+        max-width: 420px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px 35px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(31, 65, 137, 0.1),
+          0 5px 15px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        position: relative;
+        z-index: 10;
+        animation: boxLoad 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes boxLoad {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #1e293b;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      .form-group {
+        margin-bottom: 22px;
+        position: relative;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #475569;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* --- 4. PIKTOGRAMMA (IKONKA) VA SELECT ELEMENTLARI --- */
+      .select-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      /* Chap tarafdagi piktogrammalar uchun joy va stil */
+      .select-wrapper::before {
+        position: absolute;
+        left: 15px;
+        font-size: 18px;
+        color: #64748b;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      /* Har bir maydon uchun o'ziga xos piktogramma */
+      #groupClass::before {
+        content: "🏫";
+      }
+      #groupName::before {
+        content: "👤";
+      }
+      #groupId::before {
+        content: "🆔";
+      }
+
+      select {
+        width: 100%;
+        padding: 14px 16px 14px 45px; /* Chapdan ikonka uchun bo'sh joy */
+        border-radius: 12px;
+        border: 2px solid #e2e8f0;
+        font-size: 16px;
+        color: #1e293b;
+        background-color: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        appearance: none; /* Standart brauzer strelkasini yo'qotish */
+        -webkit-appearance: none;
+      }
+
+      /* O'ng tarafdagi ochilish strelkasi dizayni */
+      .select-wrapper::after {
+        content: "▾";
+        position: absolute;
+        right: 18px;
+        font-size: 18px;
+        color: #94a3b8;
+        pointer-events: none;
+      }
+
+      select:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+      }
+
+      /* --- 5. TUGMA VA Xatolik --- */
+      button {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        transition: all 0.2s ease;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .error {
+        color: #ef4444;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+        font-weight: 500;
+        min-height: 20px;
+      }
+    </style>
   </head>
 
   <body>
-    <div id="studentInfo"></div>
-    <div class="container">
-      <div class="timer" id="timer">01:00:00</div>
+    <div class="math-shape shape1">√x</div>
+    <div class="math-shape shape2">sinα</div>
+    <div class="math-shape shape3">fx</div>
+    <div class="math-shape shape4">∑</div>
 
-      <div class="main">
-        <div class="question-area">
-          <h4 id="questionText"></h4>
-          <br />
-          <h3 id="englishAnswers"></h3>
-          <hr />
-          <img id="questionImage" class="question-img" />
+    <div class="login-box">
+      <h1>Testga kirish</h1>
 
-          <div class="answers">
-            <label class="option">
-              <input type="radio" name="answer" value="0" />
-              <span></span>
-              A
-            </label>
-
-            <label class="option">
-              <input type="radio" name="answer" value="1" />
-              <span></span>
-              B
-            </label>
-
-            <label class="option">
-              <input type="radio" name="answer" value="2" />
-              <span></span>
-              C
-            </label>
-
-            <label class="option">
-              <input type="radio" name="answer" value="3" />
-              <span></span>
-              D
-            </label>
-          </div>
-        </div>
-
-        <div class="sidebar">
-          <div class="question-grid" id="questionGrid"></div>
-
-          <button class="finish-btn" onclick="finishTest()">
-            Testni yakunlash
-          </button>
+      <div class="form-group">
+        <label>Sinf</label>
+        <div class="select-wrapper" id="groupClass">
+          <select id="classSelect">
+            <option value="">Sinfni tanlang</option>
+            <option value="5-A">5-A</option>
+          </select>
         </div>
       </div>
+
+      <div class="form-group">
+        <label>Ism Familiya</label>
+        <div class="select-wrapper" id="groupName">
+          <select id="nameSelect">
+            <option value="">O'quvchini tanlang</option>
+            <option>Abdukarimov Shuxrat Otabek O'g'li</option>
+            <option>Gafurov Sardor To'yli O'g'li</option>
+            <option>G'aniyeva Charos Akmalovna</option>
+            <option>Haydarov Bunyod Behzodovich</option>
+            <option>Ergashev Ruslan Otabekovich</option>
+            <option>Dulanova Dilnura Jaxongir Qizi</option>
+            <option>Bozorov Behruz Shavkat O'g'li</option>
+            <option>Bo'riyeva Sumbula Xusravovna</option>
+            <option>Beg'amov Javlonbek Jamshidovich</option>
+            <option>Baxtiyarov Shahriyor Shokirovich</option>
+            <option>Ismoilov Abbos Sanjarovich</option>
+            <option>Jo'rayeva Dinara Ilyos Qizi</option>
+            <option>Mamatmurodov Fazliddin Ikromovich</option>
+            <option>Norboyev Jonibek Eshbadal O'g'li</option>
+            <option>Normatov Krishtian Kenjayevich</option>
+            <option>O'ralov Asadbek Avazovich</option>
+            <option>Xasanov Akbarbek Xasanovich</option>
+            <option>Xolto'rayeva Shodiyona Ikromjonovna</option>
+            <option>Xursandov Atxambek Xasan O'g'li</option>
+            <option>Xushbakov Fozilbek Shuxratovich</option>
+            <option>Saidov Firdavs Bekmurodovich</option>
+            <option>Shukurullayeva Gulhida Adham Qizi</option>
+            <option>Tojiboyeva Sadoqat Elmurot Qizi</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>ID</label>
+        <div class="select-wrapper" id="groupId">
+          <select id="idSelect">
+            <option value="">Loginni tanlang</option>
+            <option value="st171063">st171063</option>
+            <option value="st151001">st151001</option>
+            <option value="st151659">st151659</option>
+            <option value="st150036">st150036</option>
+            <option value="st154208">st154208</option>
+            <option value="st155026">st155026</option>
+            <option value="st156744">st156744</option>
+            <option value="st157742">st157742</option>
+            <option value="st158497">st158497</option>
+            <option value="st159435">st159435</option>
+            <option value="st147269">st147269</option>
+            <option value="st145353">st145353</option>
+            <option value="st139957">st139957</option>
+            <option value="st132222">st132222</option>
+            <option value="st132023">st132023</option>
+            <option value="st130284">st130284</option>
+            <option value="st106244">st106244</option>
+            <option value="st104372">st104372</option>
+            <option value="st103472">st103472</option>
+            <option value="st103196">st103196</option>
+            <option value="st119692">st119692</option>
+            <option value="st115408">st115408</option>
+            <option value="st111957">st111957</option>
+          </select>
+        </div>
+      </div>
+
+      <button onclick="startTest()">Muvaffaqiyatli Kirish</button>
+
+      <div class="error" id="error"></div>
     </div>
 
-    <!-- <div id="resultModal" class="modal">
-      <div class="modal-content">
-        <h2>Test Natijasi</h2>
+    <script>
+      function startTest() {
+        const classValue = document.getElementById("classSelect").value;
+        const nameValue = document.getElementById("nameSelect").value;
+        const idValue = document.getElementById("idSelect").value;
+        const error = document.getElementById("error");
 
-        <div class="charts">
-          <div class="chartBox">
-            <canvas id="mathChart"></canvas>
-            <p id="mathResult"></p>
-          </div>
+        if (!classValue || !nameValue || !idValue) {
+          error.innerText = "⚠️ Barcha ma'lumotlarni tanlang!";
+          return;
+        }
 
-          <div class="chartBox">
-            <canvas id="engChart"></canvas>
-            <p id="engResult"></p>
-          </div>
-        </div>
+        // Ma'lumotlarni saqlash
+        localStorage.setItem("studentClass", classValue);
+        localStorage.setItem("studentName", nameValue);
+        localStorage.setItem("studentId", idValue);
 
-        <div class="modal-buttons">
-          <button onclick="restartTest()" class="restart">
-            Qayta boshlash
-          </button>
-
-          <button onclick="exitTest()" class="exit">Testdan chiqish</button>
-        </div>
-      </div>
-    </div> -->
-
-    <div id="resultModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>🎉 Test Yakunlandi</h2>
-          <p class="subtitle">Sizning umumiy natijangiz bilan tanishing</p>
-        </div>
-
-        <div class="student-profile-card">
-          <div class="profile-info">
-            <p>
-              <strong>O'quvchi:</strong>
-              <span id="resStudentName">Eshmatov Toshmat</span>
-            </p>
-            <p>
-              <strong>Sinf / ID:</strong>
-              <span id="resStudentClass">5-A sinf</span>
-            </p>
-          </div>
-          <div class="status-badge passed" id="resStatus">O'tdi</div>
-        </div>
-
-        <div class="overall-stats">
-          <div class="stat-item">
-            <span class="stat-label">Umumiy Ball:</span>
-            <span class="stat-value" id="totalScore">38 / 50</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Foiz ko'rsatkichi:</span>
-            <span class="stat-value" id="totalPercentage">76%</span>
-          </div>
-        </div>
-
-        <div class="charts">
-          <div class="chartBox">
-            <h3>Matematika</h3>
-            <canvas id="mathChart"></canvas>
-            <p id="mathResult" class="chart-result-text"></p>
-          </div>
-
-          <div class="chartBox">
-            <h3>Ingliz tili</h3>
-            <canvas id="engChart"></canvas>
-            <p id="engResult" class="chart-result-text"></p>
-          </div>
-        </div>
-
-        <div class="modal-buttons">
-          <button onclick="restartTest()" class="restart-btn">
-            🔄 Qayta boshlash
-          </button>
-          <button onclick="exitTest()" class="exit-btn">
-            🚪 Testdan chiqish
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        // O'tish manzili (Asosiy test sahifangiz nomi nima bo'lsa shuni yozing, masalan: index.html)
+        window.location.href = "main.html";
+      }
+    </script>
   </body>
 </html>

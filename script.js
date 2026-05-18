@@ -5,25 +5,12 @@ const studentClass = localStorage.getItem("studentClass");
 const studentId = localStorage.getItem("studentId");
 
 if (!studentName || !studentClass || !studentId) {
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
-
-// Matnni "Capitalize" (Har bir so'zning birinchi harfini katta) qiluvchi funksiya
-function capitalizeText(text) {
-  if (!text) return "";
-  return text
-    .toLowerCase()
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-// Ismni chiroyli formatga o'tkazamiz
-const formattedName = capitalizeText(studentName);
 
 // Endi HTML ichiga formattedName o'zgaruvchisini joylashtiramiz
 document.getElementById("studentInfo").innerHTML = `
-  <span>👤 <b>O'quvchi:</b> &nbsp;${formattedName}</span>
+  <span>👤 <b>O'quvchi:</b> &nbsp;${studentName}</span>
   <span>🏫 <b>Sinf:</b> &nbsp;${studentClass}</span>
   <span>🆔 <b>ID:</b> &nbsp;${studentId}</span>
 `;
@@ -358,11 +345,11 @@ function startTimer() {
 function restartTest() {
   localStorage.clear();
   sessionStorage.clear();
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
 
 function exitTest() {
   localStorage.clear();
   sessionStorage.clear();
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
